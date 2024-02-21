@@ -3,11 +3,110 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="/css/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Wordle</title>
   </head>
   <body>
-    <div id="app"></div>
+    
+    <main>
+      <div class="title"><span class="title_letter">W</span>ordle</div>
+      <div class="main-container">
+        <div class="left-side">
+          <div class="game-container">
+            
+            <div class="word-row">
+              <div class="letter-box clear"></div>
+              <div class="letter-box1 clear"></div>
+              <div class="letter-box2 clear"></div>
+              <div class="letter-box3 clear"></div>
+              <div class="letter-box4 clear"></div>
+              <div class="letter-box5 clear"></div>
+            </div>
+            
+
+            <div class="word-row1">
+              <div class="letter-box clear"></div>
+              <div class="letter-box1 clear"></div>
+              <div class="letter-box2 clear"></div>
+              <div class="letter-box3 clear"></div>
+              <div class="letter-box4 clear"></div>
+              <div class="letter-box5 clear"></div>
+            </div>
+            
+
+            <div class="word-row2">
+              <div class="letter-box clear"></div>
+              <div class="letter-box1 clear"></div>
+              <div class="letter-box2 clear"></div>
+              <div class="letter-box3 clear"></div>
+              <div class="letter-box4 clear"></div>
+              <div class="letter-box5 clear"></div>
+            </div>
+            
+
+            <div class="word-row3">
+              <div class="letter-box clear"></div>
+              <div class="letter-box1 clear"></div>
+              <div class="letter-box2 clear"></div>
+              <div class="letter-box3 clear"></div>
+              <div class="letter-box4 clear"></div>
+              <div class="letter-box5 clear"></div>
+            </div>
+            
+
+            <div class="word-row4">
+              <div class="letter-box clear"></div>
+              <div class="letter-box1 clear"></div>
+              <div class="letter-box2 clear"></div>
+              <div class="letter-box3 clear"></div>
+              <div class="letter-box4 clear"></div>
+              <div class="letter-box5 clear"></div>
+            </div>
+            
+
+            <div class="word-row5">
+              <div class="letter-box clear"></div>
+              <div class="letter-box1 clear"></div>
+              <div class="letter-box2 clear"></div>
+              <div class="letter-box3 clear"></div>
+              <div class="letter-box4 clear"></div>
+              <div class="letter-box5 clear"></div>
+            </div>
+            
+
+            <div class="word-row6">
+              <div class="letter-box clear"></div>
+              <div class="letter-box1 clear"></div>
+              <div class="letter-box2 clear"></div>
+              <div class="letter-box3 clear"></div>
+              <div class="letter-box4 clear"></div>
+              <div class="letter-box5 clear"></div>
+            </div>
+            
+          </div>
+          <button type="button" id="enter">Submit</button>
+        </div>
+        <div class="right-side">
+          <h2>Directions</h2>
+          <p>Start by guessing a 6 letter word.</p>
+
+          <div class="word-row-example">
+            <div class="letter-box wrong-spot"></div>
+            <div class="letter-box1 wrong"></div>
+            <div class="letter-box2 wrong"></div>
+            <div class="letter-box3 wrong"></div>
+            <div class="letter-box4 wrong"></div>
+            <div class="letter-box5 correct"></div>
+          </div>
+
+          <p>A <span class="yellow">YELLOW</span> letter is in the word but in the wrong spot.</p>
+          <p>A <span class="gray">GRAY</span> letter is not in the word.</p>
+          <p>A <span class="green">GREEN</span> letter is in the correct spot.</p>
+        </div>
+      </div>
+    </main>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>
