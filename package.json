@@ -12,6 +12,7 @@
     "vite": "^5.1.4"
   },
   "dependencies": {
-    "random-words": "^2.0.1"
+    "random-words": "^2.0.1",
+    "sweetalert": "^2.1.2"
   }
 }

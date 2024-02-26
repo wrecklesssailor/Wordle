@@ -1,5 +1,7 @@
 
 import { generate } from "random-words";
+import swal from 'sweetalert';
+
 
 
 /* Variables */
@@ -57,16 +59,25 @@ export function clear() {
 
 export function updateGuess(letter) {
     const guessArr = getCurrentGuessArr();
-    if (guessArr.length < 6) {
-        guessArr.push(letter);
+    let elementId = nextEmptyRow + "-" + nextEmptySpot;
 
-        let elementId = nextEmptyRow + "-" + nextEmptySpot;
+    if (guessArr.length < 6) {
         let availibleElement = document.getElementById(elementId);
         
-        if (nextEmptySpot < 6) {
-            nextEmptySpot++; 
-            availibleElement.textContent = letter;
-        }
+        guessArr.push(letter);
+        nextEmptySpot++; 
+        availibleElement.textContent = letter;
+
+
+        console.log(elementId);
+        console.log(guesses);
+    } else { 
+        let availibleElement = document.getElementById(elementId);
+        
+        guesses.push([letter]);
+        nextEmptySpot++; 
+        availibleElement.textContent = letter;
+
 
         console.log(elementId);
         console.log(guesses);
@@ -76,49 +87,57 @@ export function updateGuess(letter) {
 
 export function enter(answerKey) {
     const enterButton = document.getElementById("enter");
-    let guessArr = getCurrentGuessArr();
     
     enterButton.addEventListener("click", () => {
+        let guessArr = getCurrentGuessArr();
+        let answerArr = answerKey;
         
-        console.log("Enter");
-        
-        if (guessArr.length === answerKey.length) {
+        const getAnswer = (a, b) => {
+            let x = a.toString();
+            let y = b.toString();
+
+            return x.toLowerCase() === y.toLowerCase();
+        }
+
+        if (getAnswer(guessArr, answerArr)) {
             
-            console.log("Entered if")
+            for (let i = 0; i <= guessArr.length - 1; i++) {
+                let elementId = nextEmptyRow + "-" + i;
+                let availableElement = document.getElementById(elementId);
 
-            for (let i = 0; i < answerKey.length; i++) {
-                
-                console.log("Entered for loop for correct" + i)
-                
-                if ((answerKey.includes(guessArr[i]) && guessArr[i] !== answerKey[i])) {
-                    console.log("Entered Loops if")
-
-                    let elementId = nextEmptyRow + "-" + i;
-                    let availibleElement = document.getElementById(elementId);
-                    availibleElement.classList.add("wrong-spot");
-
-                } else if (guessArr[i] === answerKey[i]) {
-                    console.log("Entered Loops if")
-                    
-                    let elementId = nextEmptyRow + "-" + i;
-                    let availibleElement = document.getElementById(elementId);
-                    availibleElement.classList.add("correct");
-                
-                } else {
-                    console.log("Entered for loop for wrong" + i)
-                    
-                    let elementId = nextEmptyRow + "-" + i;
-                    let availibleElement = document.getElementById(elementId);
-                    availibleElement.classList.add("wrong");
-                }
-
+                availableElement.classList.add("correct");
             }
 
+            swal({
+                title: "Good job!",
+                text: "You guessed the correct word!",
+                icon: "success",
+                button: {
+                    text: "New Word",
+
+                }
+            }).then(() =>{
+                window.location.reload();
+            });;
+
         } else {
-            console.log("Incorrect length");
+            guessArr.forEach((letter, index) => {
+                let elementId = nextEmptyRow + "-" + index;
+                let availableElement = document.getElementById(elementId);
+                
+                if (letter === answerArr[index]) {
+                    availableElement.classList.add("correct");
+                } else if (answerArr.includes(letter)) {
+                    availableElement.classList.add("wrong-spot");
+                } else {
+                    availableElement.classList.add("wrong");
+                }
+            });
+
+            nextEmptyRow++;
+            nextEmptySpot = 0;
         }
-    });
-}
+});}
 
 
 export function createBoxes() {
