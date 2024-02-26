@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^5.1.4"
+  },
+  "dependencies": {
+    "random-words": "^2.0.1"
   }
 }

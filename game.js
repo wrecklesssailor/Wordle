@@ -3,22 +3,56 @@ import { generate } from "random-words";
 
 
 /* Variables */
-const word = getWord().split("");
 const guesses = [[]];
 let nextEmptySpot = 0;
 let nextEmptyRow = 0;
 
-function getWord() {
+export function getWord() {
     return generate({
         minLength: 6,
         maxLength: 6
     })
 }
 
-
 function getCurrentGuessArr() {
     const numberOfGuesses = guesses.length;
     return guesses[numberOfGuesses - 1];
+}
+
+export function backspace() {
+    const guessArr = getCurrentGuessArr();
+    
+    if (guessArr.length != 0) {
+        nextEmptySpot--;
+        guessArr.pop();
+        let elementId = (nextEmptyRow) + "-" + (nextEmptySpot);
+        let availibleElement = document.getElementById(elementId);
+        availibleElement.textContent = "";
+    
+        console.log(elementId);
+        console.log(guesses);
+    }
+    
+}
+
+export function clear() {
+    let guessArr = getCurrentGuessArr();
+    const clearButton = document.getElementById("clear");
+    clearButton.addEventListener("click", () => {
+
+        for (let i = 0; i < guessArr.length; i++) {
+            let elementId = (nextEmptyRow) + "-" + i;
+            let availibleElement = document.getElementById(elementId);
+            
+            availibleElement.textContent = "";
+        }
+        
+        guessArr.length = 0;
+
+        nextEmptySpot = 0;
+    });
+    
+
 }
 
 export function updateGuess(letter) {
@@ -28,12 +62,62 @@ export function updateGuess(letter) {
 
         let elementId = nextEmptyRow + "-" + nextEmptySpot;
         let availibleElement = document.getElementById(elementId);
-        if (nextEmptySpot < 5) {
+        
+        if (nextEmptySpot < 6) {
             nextEmptySpot++; 
+            availibleElement.textContent = letter;
         }
-        availibleElement.textContent = letter;
+
         console.log(elementId);
+        console.log(guesses);
     }
+}
+
+
+export function enter(answerKey) {
+    const enterButton = document.getElementById("enter");
+    let guessArr = getCurrentGuessArr();
+    
+    enterButton.addEventListener("click", () => {
+        
+        console.log("Enter");
+        
+        if (guessArr.length === answerKey.length) {
+            
+            console.log("Entered if")
+
+            for (let i = 0; i < answerKey.length; i++) {
+                
+                console.log("Entered for loop for correct" + i)
+                
+                if ((answerKey.includes(guessArr[i]) && guessArr[i] !== answerKey[i])) {
+                    console.log("Entered Loops if")
+
+                    let elementId = nextEmptyRow + "-" + i;
+                    let availibleElement = document.getElementById(elementId);
+                    availibleElement.classList.add("wrong-spot");
+
+                } else if (guessArr[i] === answerKey[i]) {
+                    console.log("Entered Loops if")
+                    
+                    let elementId = nextEmptyRow + "-" + i;
+                    let availibleElement = document.getElementById(elementId);
+                    availibleElement.classList.add("correct");
+                
+                } else {
+                    console.log("Entered for loop for wrong" + i)
+                    
+                    let elementId = nextEmptyRow + "-" + i;
+                    let availibleElement = document.getElementById(elementId);
+                    availibleElement.classList.add("wrong");
+                }
+
+            }
+
+        } else {
+            console.log("Incorrect length");
+        }
+    });
 }
 
 
